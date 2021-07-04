@@ -1,9 +1,7 @@
-Assignment: 407ETR Cost/Distance Calculation
-Name: Gundeep Singh
+The project is made using eclipse IDE with default settings and port set at localhost:7070.
 
-Please find the entire J2EE project zipped in folder named 407. For convenient and better representation, I made a basic front also using Java Servlet Pages and the backend is made using Java Servlets.
+For the project to build and run successfully, following libraries will be needed:
 
-The project is made using eclipse with default settings and port set at localhost:7070. For the project to build and run successfully, you will need following libraries:
 Simple JSON 1.1 and JUNIT 4
 
 The simple-json 1.1 library can be found in the root folder itself and the project is pointed to the library itself.
@@ -27,5 +25,7 @@ Appropriate validations are setup and are in place to catch errors like:
 4)	Case Insensitive: This is handled automatically and the program runs successfully with case insensitive data
 
 The unit tests for the application can be found in the UnitTest.java class and to run the tests. Simply running the UnitTest class with “Junit test” as the run configurations.
+
+For beautification and readability, I have used BootStrap4.
 
 Due to my default eclipse settings, the class path invocation is set to a different folder which prevented me in using relative path to the file “interchanges.json”. The path must be setup properly before running the application.
