@@ -1,0 +1,158 @@
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import org.json.simple.parser.JSONParser;
+import org.junit.Test;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+ * Servlet implementation class ServiceClass
+ */
+@WebServlet("/ServiceClass")
+public class ServiceClass extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ServiceClass() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@SuppressWarnings("unchecked")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		JSONParser parser = new JSONParser();
+		
+		String sPoint = request.getParameter("start");
+		String ePoint = request.getParameter("end");
+		
+		HelperClass helperObj = new HelperClass();
+		JSONObject response = helperObj.calculate(sPoint, ePoint);
+		
+		
+//		try {
+//			
+//			String sPoint = request.getParameter("start");
+//			String ePoint = request.getParameter("end");
+//			
+//			
+//			Object obj = parser.parse(new FileReader("D:\\407\\407ETR_Gundeep_Singh_assignment\\src\\DataObjects\\interchanges.json"));
+//
+//			 
+//			// A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
+//			JSONObject jsonObject = (JSONObject) obj;		
+//			 JSONObject intersections = (JSONObject)jsonObject.get("locations");
+//			 
+//			 Object[] newArray = intersections.keySet().toArray();
+//			 
+//			 for (int i =0; i < newArray.length; i++) {
+//				newArray[i] = Integer.parseInt(newArray[i].toString()) ;
+//			}
+//			 Arrays.sort(newArray);
+//			 
+//			 for (int i =0; i < newArray.length; i++) {
+//					System.out.println(newArray[i]);
+//				}
+//			Map<String,String> pairValues = new HashMap<>();
+//			
+//			for (Object entry : newArray) {
+//				
+//
+//				
+//				JSONObject intersection = (JSONObject)intersections.get(entry.toString());
+//
+//				pairValues.put(intersection.get("name").toString().toUpperCase(),entry.toString());
+//			}
+//			System.out.println(pairValues);
+//			
+//			String idOfStartPoint = pairValues.get(sPoint.toUpperCase());
+//			String idOfDestinationPoint = pairValues.get(ePoint.toUpperCase());
+//			
+//			System.out.println(idOfStartPoint);
+//			
+//			
+//			JSONObject startPointObject = (JSONObject) intersections.get(idOfStartPoint);
+//			JSONObject endPointObject = (JSONObject) intersections.get(idOfDestinationPoint);
+//			
+//			float distance = 0.0f;
+//			float cost = 0.0f;
+//			
+//			System.out.println(startPointObject);
+//			
+//			while(Integer.parseInt(idOfStartPoint ) != Integer.parseInt(idOfDestinationPoint)) {
+//				if(Integer.parseInt(idOfStartPoint ) < Integer.parseInt(idOfDestinationPoint)) {
+//					JSONArray routes = (JSONArray) startPointObject.get("routes");
+//					JSONObject route = (JSONObject)routes.get(0);
+//					String toId = route.get("toId").toString();
+//					
+//					idOfStartPoint = toId;
+//					distance = distance + Float.parseFloat(route.get("distance").toString());
+//					startPointObject = (JSONObject) intersections.get(idOfStartPoint);
+//					
+//					
+//				}else {
+//					JSONArray routes = (JSONArray) startPointObject.get("routes");
+//					JSONObject route = (JSONObject)routes.get(1);
+//					String toId = route.get("toId").toString();
+//					
+//					idOfStartPoint = toId;
+//					distance = distance + Float.parseFloat(route.get("distance").toString());
+//					startPointObject = (JSONObject) intersections.get(idOfStartPoint);
+//					
+//				}
+//			}
+//			cost = 0.25f * distance;
+//			
+//			System.out.println(cost);
+//			System.out.println(distance);
+//			
+//			JSONObject finalResponse = new JSONObject();
+//			finalResponse.put("tripDistance", distance);
+//			finalResponse.put("costOfTrip", cost);
+//			
+//			out.print(finalResponse.toJSONString());
+//			 
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

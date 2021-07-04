@@ -1,0 +1,36 @@
+import org.json.simple.JSONObject;
+import org.junit.Test;
+import org.junit.Assert;
+
+public class UnitTest {
+
+    
+	@Test
+    public void testGet(){
+    	HelperClass testObj = new HelperClass();
+        JSONObject response =
+                testObj.calculate("QEW", "Appleby Line");
+
+        
+        Assert.assertEquals("2.4772499", response.get("costOfTrip").toString());
+    }
+	@Test
+    public void testGe(){
+    	HelperClass testObj = new HelperClass();
+        JSONObject response =
+                testObj.calculate("QEW", "QEW");
+
+        
+        Assert.assertEquals("0.0", response.get("costOfTrip").toString());
+    }
+	@Test
+    public void SpellingCheck(){
+    	HelperClass testObj = new HelperClass();
+        JSONObject response =
+                testObj.calculate("QEW", "QEW");
+
+        
+        Assert.assertEquals("0.0", response.get("costOfTrip").toString());
+    }
+	
+}

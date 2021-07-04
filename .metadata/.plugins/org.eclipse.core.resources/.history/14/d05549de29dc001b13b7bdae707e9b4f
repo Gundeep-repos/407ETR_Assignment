@@ -1,0 +1,97 @@
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import org.json.simple.parser.JSONParser;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+ * Servlet implementation class ServiceClass
+ */
+@WebServlet("/ServiceClass")
+public class ServiceClass extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ServiceClass() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@SuppressWarnings("unchecked")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("Hello");
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("success");
+		
+		JSONParser parser = new JSONParser();
+		
+		try {
+			
+			Object obj = parser.parse(new FileReader("D:\\407\\407ETR_Gundeep_Singh_assignment\\src\\DataObjects\\interchanges.json"));
+
+			 
+			// A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
+			JSONObject jsonObject = (JSONObject) obj;		
+			 JSONObject intersections = (JSONObject)jsonObject.get("locations");
+			 
+			 Object[] newArray = intersections.keySet().toArray();
+			Map<String,Integer> pairValues = new HashMap<>();
+			
+			for (Object entry : newArray) {
+				
+				JSONObject intersection = (JSONObject)intersections.get(entry);
+				
+				pairValues.put(intersection.get("name").toString(),Integer.parseInt(entry.toString()));
+			}
+			System.out.println(pairValues.get("Dundas"));
+			
+			 
+			 
+//			 JSONObject firstIntersection = intersections.get(key)
+//			 Integer newId = new Integer(3);
+//			 System.out.println((intersections.get("3"));
+			 out.print(obj);
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

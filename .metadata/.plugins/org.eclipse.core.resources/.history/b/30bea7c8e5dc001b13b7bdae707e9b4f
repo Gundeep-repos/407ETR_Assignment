@@ -1,0 +1,15 @@
+import org.json.simple.JSONObject;
+import org.junit.Test;
+import static junit.framework.Assert.*;
+
+public class UnitTest {
+
+    @Test
+    public void testGet(){
+    	HelperClass testObj = new HelperClass();
+        JSONObject response =
+                testObj.calculate("QEW", "QEW");
+
+        assertEquals("one,two,three,four", JSONObject.cost);
+    }
+}

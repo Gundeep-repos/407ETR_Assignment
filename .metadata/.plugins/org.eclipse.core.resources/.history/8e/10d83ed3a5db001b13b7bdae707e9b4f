@@ -1,0 +1,76 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script>
+
+
+function go2(){
+	
+	var ans = "";
+	
+	var xhr = new XMLHttpRequest;
+
+
+    // CORS Policy, should allow OPTIONS 
+    // AJAX uses OPTIONS instead of GET, POST which are enabled by default
+
+    xhr.open("GET", "./ServiceClass", true);
+
+    // xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+    // xhr.setRequestHeader('Access-Control-Allow-Methods', 'OPTIONS');
+    // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+
+    //for response receiving
+    xhr.onreadystatechange = function ()
+    {
+    	
+    	if(xhr.readyState == 4 && xhr.status == 200){
+    		alert("Hello");
+    		var res = xhr.responseText.trim();
+                if (res == "success")
+                {
+                	alert(res);
+                }else{
+                	console.log("");
+                }
+    	}
+        //if (xhr.readyState === 4 && xhr.status == 200)
+        //{
+          //  var res = xhr.responseText.trim();
+        //    if (res == "success")
+           // {
+         //       alert("category added successfuly.");
+            //    document.getElementById("lb1").innerHTML = "Category Successfuly Added";
+         //       document.getElementById("lb1").style.color = "green";
+        //        document.getElementById("form1").reset();
+          //      document.getElementById("im1").src = "";
+      //      } else
+    //        {
+   //             document.getElementById("lb1").innerHTML = "Unsuccessful"
+  //              document.getElementById("lb1").style.color = "red";
+//
+  //          }
+//        } -->
+    };
+
+
+
+
+
+    	xhr.send("Sent dete");
+		
+}
+
+
+
+</script>
+</head>
+<body>
+
+
+<button style="color: blueviolet" onclick="go2()">Fetch All Data</button>
+</body>
+</html>

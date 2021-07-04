@@ -1,0 +1,106 @@
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+public class HelperClass {
+	
+	@SuppressWarnings("unchecked")
+	public JSONObject calculate(String sPoint, String ePoint) {
+		JSONParser parser = new JSONParser();
+		JSONObject finalResponse = new JSONObject();
+		
+		try {
+			
+			
+			Object obj = parser.parse(new FileReader("D:\\407\\407ETR_Gundeep_Singh_assignment\\src\\DataObjects\\interchanges.json"));
+
+			 
+			// A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
+			JSONObject jsonObject = (JSONObject) obj;		
+			 JSONObject intersections = (JSONObject)jsonObject.get("locations");
+			 
+			 
+			Object[] newArray = intersections.keySet().toArray();
+			 
+			Map<String,String> pairValues = new HashMap<>();
+			
+			for (Object entry : newArray) {
+				
+				JSONObject intersection = (JSONObject)intersections.get(entry.toString());
+				pairValues.put(intersection.get("name").toString().toUpperCase(),entry.toString());
+			}
+
+			if(sPoint.toUpperCase() == "" || ePoint.toUpperCase() == "") {
+				
+				finalResponse.put("status", "null");
+				finalResponse.put("message", "Null Values Passed");
+				
+				return finalResponse;
+			}
+			else if(pairValues.get(sPoint.toUpperCase()) == null || pairValues.get(ePoint.toUpperCase()) == null) {
+				finalResponse.put("status", "fail");
+				finalResponse.put("message", "Inccorect Spellings for Destinations");
+				
+				return finalResponse;
+			}
+			
+			String idOfStartPoint = pairValues.get(sPoint.toUpperCase());
+			String idOfDestinationPoint = pairValues.get(ePoint.toUpperCase());
+			
+			System.out.println(idOfStartPoint);
+			
+			
+			JSONObject startPointObject = (JSONObject) intersections.get(idOfStartPoint);
+//			JSONObject endPointObject = (JSONObject) intersections.get(idOfDestinationPoint);
+			
+			float distance = 0.0f;
+			float cost = 0.0f;
+			
+			System.out.println(startPointObject);
+			
+			while(Integer.parseInt(idOfStartPoint ) != Integer.parseInt(idOfDestinationPoint)) {
+				if(Integer.parseInt(idOfStartPoint ) < Integer.parseInt(idOfDestinationPoint)) {
+					JSONArray routes = (JSONArray) startPointObject.get("routes");
+					JSONObject route = (JSONObject)routes.get(0);
+					String toId = route.get("toId").toString();
+					
+					idOfStartPoint = toId;
+					distance = distance + Float.parseFloat(route.get("distance").toString());
+					startPointObject = (JSONObject) intersections.get(idOfStartPoint);
+					
+					
+				}else {
+					JSONArray routes = (JSONArray) startPointObject.get("routes");
+					JSONObject route = (JSONObject)routes.get(1);
+					String toId = route.get("toId").toString();
+					
+					idOfStartPoint = toId;
+					distance = distance + Float.parseFloat(route.get("distance").toString());
+					startPointObject = (JSONObject) intersections.get(idOfStartPoint);
+					
+				}
+			}
+			cost = 0.25f * distance;
+			
+			System.out.println(cost);
+			System.out.println(distance);
+			
+			finalResponse.put("status", "success");
+			finalResponse.put("message", "The Request Completed Successfuly");
+			finalResponse.put("tripDistance", distance);
+			finalResponse.put("costOfTrip", cost);
+			
+			return finalResponse;
+//			out.print(finalResponse.toJSONString());
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return finalResponse;
+	}
+
+}

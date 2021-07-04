@@ -1,0 +1,18 @@
+import org.json.simple.JSONObject;
+import org.junit.Test;
+import org.junit.Assert;
+//import static junit.framework.Assert.*;
+
+public class UnitTest {
+
+    
+	@Test
+    public void testGet(){
+    	HelperClass testObj = new HelperClass();
+        JSONObject response =
+                testObj.calculate("QEW", "Appleby Line");
+
+        
+        assertEquals("2.4772499", response.get("costOfTrip").toString());
+    }
+}

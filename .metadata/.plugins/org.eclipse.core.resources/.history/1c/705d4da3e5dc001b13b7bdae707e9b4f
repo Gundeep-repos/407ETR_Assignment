@@ -1,0 +1,15 @@
+import org.junit.Test;
+import static junit.framework.Assert.*;
+
+public class UnitTest {
+
+    @Test
+    public void testGet(){
+    	HelperClass testObj = new HelperClass();
+        String response =
+                MyConcatenator.concatenate(
+                        "one", "two", "three", "four");
+
+        assertEquals("one,two,three,four", concatenated);
+    }
+}
